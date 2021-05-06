@@ -7,10 +7,10 @@ export const notFound = (req, res, next) => {
   next(error)
 }
 
-export const errorHandler = (err, _req, res) => {
+export const errorHandler = (err, _req, res, _next) => {
   const statusCode = res.statusCode === 200 ? 500 : res.statusCode
-  res.status(statusCode)
-  res.json({
+  res.status(statusCode).json({
+    success: false,
     message: err.message,
     stack: __is_prod__ ? null : err.stack
   })

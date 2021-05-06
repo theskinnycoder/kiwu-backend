@@ -1,12 +1,7 @@
 import Product from "../models/Product.model.js"
 
-export const getAllProducts = async () => await Product.find()
-
-export const getProductsByCategory = async ({ categories }) =>
-  await Product.find({ ...categories, approved: true })
-
-export const getProductsByAdmin = async ({ admin }) =>
-  await Product.find({ admin, approved: true })
+export const getAllProducts = async ({ keywords }) =>
+  await Product.find({ appproved: true, ...keywords })
 
 export const getPendingProducts = async () =>
   await Product.find({ approved: false })

@@ -11,14 +11,14 @@ import {
 
 export const admins_index = asyncHandler(async (_req, res) => {
   const admins = await getAllAdmins()
-  res.json({ data: admins })
+  res.json({ success: true, data: admins })
 })
 
 export const admin_details = asyncHandler(async (req, res) => {
   const admin = await getAdminByID(req.params.id)
 
   if (admin) {
-    res.json({ data: admin })
+    res.json({ success: true, data: admin })
   } else {
     res.status(404)
     throw new Error("There is no Admin with this ID")
@@ -36,6 +36,7 @@ export const admin_put = asyncHandler(async (req, res) => {
 
   if (updatedAdmin) {
     res.json({
+      success: true,
       data: { updatedAdmin },
       msg: `${updatedAdmin.username}'s profile is updated`
     })
@@ -53,6 +54,7 @@ export const admin_patch = asyncHandler(async (req, res) => {
 
   if (updatedAdmin) {
     res.json({
+      success: true,
       data: { updatedAdmin },
       msg: `${updatedAdmin.username} is no longer an admin`
     })
@@ -66,9 +68,9 @@ export const admin_delete = asyncHandler(async (req, res) => {
   const deletedAdmin = await deleteAdminByID(req.params.id)
 
   if (deletedAdmin) {
-    res.cookie(COOKIE_NAME, "", { maxAge: 0 })
     req.user = null
-    res.json({
+    res.cookie(COOKIE_NAME, "", { maxAge: 0 }).json({
+      success: true,
       data: { deletedAdminID: deletedAdmin.id },
       msg: `${deletedAdmin.username} is no longer an Admin nor a Customer of this site`
     })
@@ -83,6 +85,7 @@ export const make_admin = asyncHandler(async (req, res) => {
 
   if (newAdmin)
     res.json({
+      success: true,
       data: { newAdmin },
       msg: `${newAdmin.username} is now an Admin`
     })

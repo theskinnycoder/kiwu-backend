@@ -11,7 +11,8 @@ export const getUserByEmail = async email => {
 
 export const createUser = async ({ username, email, password }) => {
   try {
-    return await User.create({ username, email, password })
+    const newUser = new User({ username, email, password })
+    return await newUser.save()
   } catch (error) {
     console.log(error.message)
     return null

@@ -23,6 +23,9 @@
 #### **3. Product Routes :**
 
 - **GET `/api/products`** : To get all products
+- **GET `/api/products?categories=:categories`** : To get all products that matches a list of categories
+- **GET `/api/products?admin=:admin`** : To get all products that belongs to an admin
+- **GET `/api/products`** : To get all products
 - **GET `/api/products/:id`** : To get a product by ID
 
 ### **B) Authenticated Routes :**
@@ -56,6 +59,7 @@
 
 #### **2. Admin Routes :**
 
+- **POST `/api/admins`** : To make an admin by email (req.body.email)
 - **PATCH `/api/admins`** : To remove an admin by email (req.body.email)
 - **PATCH `/api/admins/:id`** : To remove an admin by ID (req.params.id)
 - **PUT `/api/admins/:id`** : To update an admin details by ID

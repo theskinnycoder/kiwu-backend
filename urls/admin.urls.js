@@ -4,13 +4,18 @@ import {
   admin_delete,
   admin_details,
   admin_patch,
-  admin_put
+  admin_put,
+  make_admin
 } from "../controllers/admin.controllers.js"
 import { isSuperAdmin, protect } from "../middleware/auth.middleware.js"
 
 const router = express.Router()
 
-router.route("/").get(admins_index).patch(protect, isSuperAdmin, admin_patch)
+router
+  .route("/")
+  .get(admins_index)
+  .patch(protect, isSuperAdmin, admin_patch)
+  .post(protect, isSuperAdmin, make_admin)
 
 router
   .route("/:id")

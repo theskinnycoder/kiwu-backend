@@ -11,7 +11,7 @@ export const profile_details = asyncHandler(async (req, res) => {
   const profile = await getProfileByID(req?.user._id)
 
   if (profile) {
-    res.json({ data: { profile } })
+    res.json({ success: true, data: { profile } })
   } else {
     res.status(404)
     throw new Error("Profile not found")
@@ -39,6 +39,7 @@ export const profile_put = asyncHandler(async (req, res) => {
       })
 
     res.json({
+      success: true,
       data: { updatedProfile },
       msg: `Your profile is updated${
         hasPasswordChanged ? " and the password is changed" : ""
@@ -54,9 +55,9 @@ export const profile_delete = asyncHandler(async (req, res) => {
   const deletedProfile = await deleteProfileByID(req?.user.id)
 
   if (deletedProfile) {
-    res.cookie(COOKIE_NAME, "", { maxAge: 0 })
     req.user = null
-    res.json({
+    res.cookie(COOKIE_NAME, "", { maxAge: 0 }).json({
+      success: true,
       data: { deletedProfile },
       msg: "Your account has been deleted"
     })

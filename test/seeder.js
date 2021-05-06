@@ -14,14 +14,14 @@ const importData = async () => {
     await Product.deleteMany()
     await User.deleteMany()
 
-    const promises = users.map(async user => {
-      user.password = await argon2.hash(user.password)
-      return user
-    })
-
-    const users_copy = await Promise.all(promises)
-
-    await User.insertMany(users_copy)
+    await User.insertMany(
+      await Promise.all(
+        users.map(async user => {
+          user.password = await argon2.hash(user.password)
+          return user
+        })
+      )
+    )
 
     // const adminUser = createdUsers[0]._id;
 
