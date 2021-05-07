@@ -40,7 +40,7 @@ export const product_post = asyncHandler(async (req, res) => {
     res.status(201).json({
       success: true,
       data: newProduct,
-      msg: `${newProduct.name} has been added`
+      message: `${newProduct.name} has been added`
     })
   else throw new Error("Couldn't create the product")
 })
@@ -54,7 +54,7 @@ export const product_put = asyncHandler(async (req, res) => {
     res.json({
       success: true,
       data: updatedProduct,
-      msg: `${updatedProduct.name}'s details are updated`
+      message: `${updatedProduct.name}'s details are updated`
     })
   else {
     res.status(404)
@@ -69,7 +69,7 @@ export const product_delete = asyncHandler(async (req, res) => {
     res.json({
       success: true,
       data: { deleteProductID: deletedProduct.id },
-      msg: `${deletedProduct.name} is now deleted`
+      message: `${deletedProduct.name} is now deleted`
     })
   } else {
     res.status(404)
@@ -94,7 +94,7 @@ export const product_approve = asyncHandler(async (req, res) => {
     res.json({
       success: true,
       data: { approvedProduct },
-      msg: `${approvedProduct.admin.username}'s ${approvedProduct.name} is now approved`
+      message: `${approvedProduct.admin.username}'s ${approvedProduct.name} is now approved`
     })
   } else {
     res.status(404)
@@ -109,7 +109,7 @@ export const product_decline = asyncHandler(async (req, res) => {
     res.json({
       success: true,
       data: { declinedProductID: declinedProduct._id },
-      msg: `${declinedProduct.admin.username}'s ${declinedProduct.name} is declined`
+      message: `${declinedProduct.admin.username}'s ${declinedProduct.name} is declined`
     })
   } else {
     res.status(404)

@@ -41,7 +41,7 @@ export const profile_put = asyncHandler(async (req, res) => {
     res.json({
       success: true,
       data: { updatedProfile },
-      msg: `Your profile is updated${
+      message: `Your profile is updated${
         hasPasswordChanged ? " and the password is changed" : ""
       }`
     })
@@ -59,7 +59,7 @@ export const profile_delete = asyncHandler(async (req, res) => {
     res.cookie(COOKIE_NAME, "", { maxAge: 0 }).json({
       success: true,
       data: { deletedProfile },
-      msg: "Your account has been deleted"
+      message: "Your account has been deleted"
     })
   } else {
     res.status(404)

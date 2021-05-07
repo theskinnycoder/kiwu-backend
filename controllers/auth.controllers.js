@@ -23,7 +23,7 @@ export const register = asyncHandler(async (req, res) => {
       .json({
         success: true,
         data: { newUser },
-        msg: `Welcome aboard, ${username}`
+        message: `Welcome aboard, ${username}`
       })
   }
 })
@@ -44,7 +44,7 @@ export const login = asyncHandler(async (req, res) => {
         .json({
           succes: true,
           data: { user },
-          msg: `Welcome back, ${user.username}`
+          message: `Welcome back, ${user.username}`
         })
     } else throw new Error("Invalid Credentials!")
   } else {
@@ -57,6 +57,6 @@ export const logout = asyncHandler(async (req, res) => {
     req.user = null
     res
       .cookie(COOKIE_NAME, "", { maxAge: 0 })
-      .json({ succes: true, msg: "Logging Out" })
+      .json({ succes: true, message: "Logging Out" })
   } else throw new Error("Already Logged Out")
 })
