@@ -5,6 +5,7 @@ import morgan from "morgan"
 import { errorHandler, notFound } from "./middleware/errorHandler.js"
 import adminURLs from "./urls/admin.urls.js"
 import authURLs from "./urls/auth.urls.js"
+import orderURLs from "./urls/order.urls.js"
 import productURLs from "./urls/product.urls.js"
 import profileURLs from "./urls/profile.urls.js"
 import connectDB from "./utils/connectDB.js"
@@ -29,6 +30,7 @@ import colors from "colors"
   app.use("/api/admins", adminURLs)
   app.use("/api/products", productURLs)
   app.use("/api/me", profileURLs)
+  app.use("/api/orders", orderURLs)
 
   // -- Custom Error-Handlers
   app.use(notFound)

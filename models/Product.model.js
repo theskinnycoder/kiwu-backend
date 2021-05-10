@@ -27,14 +27,7 @@ const productSchema = new mongoose.Schema(
       type: [String],
       required: true
     },
-    reviews: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        required: true,
-        ref: "Review"
-      }
-    ],
-    rating: {
+    avgRating: {
       type: Number,
       required: true,
       default: 0
