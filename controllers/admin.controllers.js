@@ -11,14 +11,14 @@ import {
 
 export const admins_index = asyncHandler(async (_req, res) => {
   const admins = await getAllAdmins()
-  res.json({ success: true, data: admins })
+  res.json({ data: admins })
 })
 
 export const admin_details = asyncHandler(async (req, res) => {
   const admin = await getAdminByID(req.params.id)
 
   if (admin) {
-    res.json({ success: true, data: admin })
+    res.json({ data: admin })
   } else {
     res.status(404)
     throw new Error("There is no Admin with this ID")
@@ -35,11 +35,7 @@ export const admin_put = asyncHandler(async (req, res) => {
   })
 
   if (updatedAdmin) {
-    res.json({
-      success: true,
-      data: { updatedAdmin },
-      message: `${updatedAdmin.username}'s profile is updated`
-    })
+    res.json({ data: updatedAdmin })
   } else {
     res.status(404)
     throw new Error("There is no Admin with this ID")
@@ -53,11 +49,7 @@ export const admin_patch = asyncHandler(async (req, res) => {
   else updatedAdmin = await removeFromAdminsByID({ id: req.params.id })
 
   if (updatedAdmin) {
-    res.json({
-      success: true,
-      data: { updatedAdmin },
-      message: `${updatedAdmin.username} is no longer an admin`
-    })
+    res.json({ data: updatedAdmin })
   } else {
     res.status(404)
     throw new Error("There is no Admin with this ID")
@@ -69,11 +61,7 @@ export const admin_delete = asyncHandler(async (req, res) => {
 
   if (deletedAdmin) {
     req.user = null
-    res.cookie(COOKIE_NAME, "", { maxAge: 0 }).json({
-      success: true,
-      data: { deletedAdminID: deletedAdmin.id },
-      message: `${deletedAdmin.username} is no longer an Admin nor a Customer of this site`
-    })
+    res.cookie(COOKIE_NAME, "", { maxAge: 0 }).json({ data: deletedAdmin.id })
   } else {
     res.status(404)
     throw new Error("There is no Admin with this ID")
@@ -83,12 +71,7 @@ export const admin_delete = asyncHandler(async (req, res) => {
 export const make_admin = asyncHandler(async (req, res) => {
   const newAdmin = await makeAsAdminByEmail({ email: req.body.email })
 
-  if (newAdmin)
-    res.json({
-      success: true,
-      data: { newAdmin },
-      message: `${newAdmin.username} is now an Admin`
-    })
+  if (newAdmin) res.json({ data: newAdmin })
   else {
     res.status(404)
     throw new Error("Couldn't make this User as an Admin")

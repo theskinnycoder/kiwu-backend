@@ -19,15 +19,15 @@ export const products_index = asyncHandler(async (req, res) => {
       }
     : {}
 
-  products = await getAllProducts({ keywords })
-  res.json({ success: true, data: { products } })
+  products = await getAllProducts(keywords)
+  res.json({ data: products })
 })
 
 export const product_details = asyncHandler(async (req, res) => {
-  const product = await getProductByID(req.params.id)
+  const product = await getProductByID({ id: req.params.id })
 
   if (product) {
-    res.json({ success: true, data: product })
+    res.json({ data: product })
   } else {
     res.status(404)
     throw new Error("Product not found")
@@ -35,27 +35,21 @@ export const product_details = asyncHandler(async (req, res) => {
 })
 
 export const product_post = asyncHandler(async (req, res) => {
-  const newProduct = await createProduct(req.body)
-  if (newProduct)
-    res.status(201).json({
-      success: true,
-      data: newProduct,
-      message: `${newProduct.name} has been added`
-    })
+  const newProduct = await createProduct({
+    args: req.body,
+    admin: req?.user._id
+  })
+  if (newProduct) res.status(201).json({ data: newProduct })
   else throw new Error("Couldn't create the product")
 })
 
 export const product_put = asyncHandler(async (req, res) => {
   const updatedProduct = await updateProductByID({
     id: req.params.id,
-    args: req.body
+    args: req.body,
+    admin: req?.user._id
   })
-  if (updatedProduct)
-    res.json({
-      success: true,
-      data: updatedProduct,
-      message: `${updatedProduct.name}'s details are updated`
-    })
+  if (updatedProduct) res.json({ data: updatedProduct })
   else {
     res.status(404)
     throw new Error("Product not found")
@@ -63,14 +57,13 @@ export const product_put = asyncHandler(async (req, res) => {
 })
 
 export const product_delete = asyncHandler(async (req, res) => {
-  const deletedProduct = await deleteProductByID(req.params.id)
+  const deletedProduct = await deleteProductByID({
+    id: req.params.id,
+    admin: req?.user._id
+  })
 
   if (deletedProduct) {
-    res.json({
-      success: true,
-      data: { deleteProductID: deletedProduct.id },
-      message: `${deletedProduct.name} is now deleted`
-    })
+    res.json({ data: deletedProduct._id })
   } else {
     res.status(404)
     throw new Error("Product not found")
@@ -79,23 +72,19 @@ export const product_delete = asyncHandler(async (req, res) => {
 
 export const products_pending_index = asyncHandler(async (_req, res) => {
   const pendingProducts = await getPendingProducts()
-  res.json({ success: true, data: pendingProducts })
+  res.json({ data: pendingProducts })
 })
 
 export const product_pending_details = asyncHandler(async (req, res) => {
-  const pendingProduct = await getProductByID(req.params.id)
-  res.json({ success: true, data: pendingProduct })
+  const pendingProduct = await getProductByID({ id: req.params.id })
+  res.json({ data: pendingProduct })
 })
 
 export const product_approve = asyncHandler(async (req, res) => {
-  const approvedProduct = await approveProductByID(req.params.id)
+  const approvedProduct = await approveProductByID({ id: req.params.id })
 
   if (approvedProduct) {
-    res.json({
-      success: true,
-      data: { approvedProduct },
-      message: `${approvedProduct.admin.username}'s ${approvedProduct.name} is now approved`
-    })
+    res.json({ data: approvedProduct })
   } else {
     res.status(404)
     throw new Error("Product not found")
@@ -103,14 +92,10 @@ export const product_approve = asyncHandler(async (req, res) => {
 })
 
 export const product_decline = asyncHandler(async (req, res) => {
-  const declinedProduct = await declineProductByID(req.params.id)
+  const declinedProduct = await declineProductByID({ id: req.params.id })
 
   if (declinedProduct) {
-    res.json({
-      success: true,
-      data: { declinedProductID: declinedProduct._id },
-      message: `${declinedProduct.admin.username}'s ${declinedProduct.name} is declined`
-    })
+    res.json({ data: declinedProduct._id })
   } else {
     res.status(404)
     throw new Error("Product not found")

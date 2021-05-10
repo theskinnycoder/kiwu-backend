@@ -1,68 +1,31 @@
 import Product from "../models/Product.model.js"
 
-export const getAllProducts = async ({ keywords }) =>
+export const getAllProducts = async keywords =>
   await Product.find({ appproved: true, ...keywords })
 
 export const getPendingProducts = async () =>
   await Product.find({ approved: false })
 
-export const getProductByID = async id => {
-  try {
-    return await Product.findById(id)
-  } catch (error) {
-    console.log(error.message)
-    return null
-  }
-}
+export const getProductByID = async ({ id }) => await Product.findById(id)
 
-export const createProduct = async args => {
-  try {
-    return await Product.create(args)
-  } catch (error) {
-    console.log(error.message)
-    return null
-  }
-}
+export const createProduct = async ({ args, admin }) =>
+  await Product.create({ ...args, admin })
 
-export const updateProductByID = async ({ id, args }) => {
-  try {
-    return await Product.findByIdAndUpdate(id, { args }, { new: true })
-  } catch (error) {
-    console.log(error.message)
-    return null
-  }
-}
+export const updateProductByID = async ({ id, args, admin }) =>
+  await Product.findOneAndUpdate({ id, admin }, { args }, { new: true })
 
-export const deleteProductByID = async ({ id }) => {
-  try {
-    return await Product.findByIdAndDelete(id)
-  } catch (error) {
-    console.log(error.message)
-    return null
-  }
-}
+export const deleteProductByID = async ({ id, admin }) =>
+  await Product.findOneAndDelete({ id, admin })
 
-export const approveProductByID = async ({ id }) => {
-  try {
-    return await Product.findByIdAndUpdate(
-      id,
-      { appproved: true },
-      { new: true }
-    )
-  } catch (error) {
-    console.log(error.message)
-    return null
-  }
-}
+export const approveProductByID = async ({ id }) =>
+  await Product.findOneAndUpdate(
+    { id, approved: false },
+    { appproved: true },
+    { new: true }
+  )
 
-export const declineProductByID = async ({ id }) => {
-  try {
-    return await Product.findByIdAndDelete(id)
-  } catch (error) {
-    console.log(error.message)
-    return null
-  }
-}
+export const declineProductByID = async ({ id }) =>
+  await Product.findOneAndDelete({ id, approved: false })
 
 export const countProducts = async filters =>
   await Product.countDocuments({ ...filters })

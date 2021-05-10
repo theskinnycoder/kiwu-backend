@@ -8,10 +8,10 @@ import { COOKIE_NAME, __is_prod__ } from "../utils/constants.js"
 import { encodeJWT } from "../utils/tokens.js"
 
 export const profile_details = asyncHandler(async (req, res) => {
-  const profile = await getProfileByID(req?.user._id)
+  const profile = await getProfileByID({ id: req?.user._id })
 
   if (profile) {
-    res.json({ success: true, data: { profile } })
+    res.json({ data: profile })
   } else {
     res.status(404)
     throw new Error("Profile not found")
@@ -38,13 +38,7 @@ export const profile_put = asyncHandler(async (req, res) => {
         maxAge: 364 * 24 * 60 * 60 * 1000
       })
 
-    res.json({
-      success: true,
-      data: { updatedProfile },
-      message: `Your profile is updated${
-        hasPasswordChanged ? " and the password is changed" : ""
-      }`
-    })
+    res.json({ data: updatedProfile })
   } else {
     res.status(404)
     throw new Error("Profile not found")
@@ -52,15 +46,11 @@ export const profile_put = asyncHandler(async (req, res) => {
 })
 
 export const profile_delete = asyncHandler(async (req, res) => {
-  const deletedProfile = await deleteProfileByID(req?.user.id)
+  const deletedProfile = await deleteProfileByID({ id: req?.user.id })
 
   if (deletedProfile) {
     req.user = null
-    res.cookie(COOKIE_NAME, "", { maxAge: 0 }).json({
-      success: true,
-      data: { deletedProfile },
-      message: "Your account has been deleted"
-    })
+    res.cookie(COOKIE_NAME, "", { maxAge: 0 }).json({ data: deletedProfile })
   } else {
     res.status(404)
     throw new Error("Profile not found")

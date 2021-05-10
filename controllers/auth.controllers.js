@@ -20,11 +20,7 @@ export const register = asyncHandler(async (req, res) => {
         maxAge: 364 * 24 * 60 * 60 * 1000
       })
       .status(201)
-      .json({
-        success: true,
-        data: { newUser },
-        message: `Welcome aboard, ${username}`
-      })
+      .json({ data: newUser })
   }
 })
 
@@ -41,11 +37,7 @@ export const login = asyncHandler(async (req, res) => {
           secure: __is_prod__,
           maxAge: 364 * 24 * 60 * 60 * 1000
         })
-        .json({
-          succes: true,
-          data: { user },
-          message: `Welcome back, ${user.username}`
-        })
+        .json({ data: user })
     } else throw new Error("Invalid Credentials!")
   } else {
     throw new Error("There isn't any account registered with that EmailID")
@@ -55,8 +47,6 @@ export const login = asyncHandler(async (req, res) => {
 export const logout = asyncHandler(async (req, res) => {
   if (req.cookies[COOKIE_NAME] && req.user) {
     req.user = null
-    res
-      .cookie(COOKIE_NAME, "", { maxAge: 0 })
-      .json({ succes: true, message: "Logging Out" })
+    res.status(404).cookie(COOKIE_NAME, "", { maxAge: 0 })
   } else throw new Error("Already Logged Out")
 })
