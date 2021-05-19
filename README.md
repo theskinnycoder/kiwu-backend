@@ -40,6 +40,13 @@
 - **PUT `/api/me`** : To update the profile of the current logged-in user
 - **DELETE `/api/me`** : To delete the profile of the current logged-in user
 
+#### **3. Order Routes :**
+
+- **GET `/api/orders/me`** : To get all the un-delivered orders the current logged-in user
+- **GET `/api/orders/me/:id`** : To get an un-delivered order of the current logged-in user by ID
+- **POST `/api/orders/me`** : To create a new order by the current logged-in user
+- **PATCH `/api/orders/me/:id`** : To mark an UnPaid order as paid after paying
+
 ### **C) Admin-Only Routes :**
 
 #### **1. Product Routes :**
@@ -64,6 +71,12 @@
 - **PATCH `/api/admins/:id`** : To remove an admin by ID (req.params.id)
 - **PUT `/api/admins/:id`** : To update an admin details by ID
 - **DELETE `/api/admins/:id`** : To delete an admin's account by ID (as a User too, not just admin access)
+
+#### **3. Order Routes :**
+
+- **GET `/api/orders`** : To get all un-delivered pending orders by all customers
+- **GET `/api/orders/:id`** : To get an un-delivered order by ID
+- **PATCH `/api/orders/:id/deliver`** : To mark an un-delivered order as delivered after delivery
 
 ## **3. Scripts :**
 

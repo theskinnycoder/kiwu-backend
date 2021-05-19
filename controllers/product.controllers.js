@@ -70,16 +70,19 @@ export const product_delete = asyncHandler(async (req, res) => {
   }
 })
 
+// SUPER-ADMIN ONLY
 export const products_pending_index = asyncHandler(async (_req, res) => {
   const pendingProducts = await getPendingProducts()
   res.json({ data: pendingProducts })
 })
 
+// SUPER-ADMIN ONLY
 export const product_pending_details = asyncHandler(async (req, res) => {
   const pendingProduct = await getProductByID({ id: req.params.id })
   res.json({ data: pendingProduct })
 })
 
+// SUPER-ADMIN ONLY
 export const product_approve = asyncHandler(async (req, res) => {
   const approvedProduct = await approveProductByID({ id: req.params.id })
 
@@ -91,6 +94,7 @@ export const product_approve = asyncHandler(async (req, res) => {
   }
 })
 
+// SUPER-ADMIN ONLY
 export const product_decline = asyncHandler(async (req, res) => {
   const declinedProduct = await declineProductByID({ id: req.params.id })
 
