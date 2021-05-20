@@ -12,7 +12,7 @@ import { isSuperAdmin, protect } from "../middleware/auth.middleware.js"
 
 const router = express.Router()
 
-router.get("/me", protect, orders_index).post(protect, order_post)
+router.route("/me").get(protect, orders_index).post(protect, order_post)
 router.get("/me/:id", protect, order_details)
 router.patch("/me/:id", protect, order_patch_to_paid)
 
