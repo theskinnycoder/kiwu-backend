@@ -3,7 +3,7 @@ const AllDesignersPage = () => {
     <div>
       <h1>All Designers Page</h1>
     </div>
-  )
-}
+  );
+};
 
-export default AllDesignersPage
+export default AllDesignersPage;

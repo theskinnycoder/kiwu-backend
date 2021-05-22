@@ -3,18 +3,18 @@ import {
   HomePage,
   ProductDetailsPage,
   MensSubCategoryPage,
-  WomensSubCategoryPage
-} from "../features/products/pages"
-import { MyProfilePage } from "../features/profile/pages"
+  WomensSubCategoryPage,
+} from "../features/products/pages";
+import { MyProfilePage } from "../features/profile/pages";
 import {
   ProfileDashboardComponent,
-  OrdersTableComponent
-} from "../features/profile/components"
+  OrdersTableComponent,
+} from "../features/profile/components";
 import {
   NewDesignersPage,
   AllDesignersPage,
-  DesignerDetailsPage
-} from "../features/designers/pages"
+  DesignerDetailsPage,
+} from "../features/designers/pages";
 
 const mainRoutes = [
   { path: "/", element: <HomePage /> },
@@ -27,17 +27,17 @@ const mainRoutes = [
       { path: "/men/:category/:subCategory", element: <MensSubCategoryPage /> },
       {
         path: "/women/:category/:subCategory",
-        element: <WomensSubCategoryPage />
-      }
-    ]
+        element: <WomensSubCategoryPage />,
+      },
+    ],
   },
   {
     path: "/designers",
     element: <AllDesignersPage />,
     children: [
       { path: "/:id", element: <DesignerDetailsPage /> },
-      { path: "/new", element: <NewDesignersPage /> }
-    ]
+      { path: "/new", element: <NewDesignersPage /> },
+    ],
   },
   { path: "/whats-new", element: <RecentlyAddedPage /> },
   {
@@ -45,9 +45,9 @@ const mainRoutes = [
     element: <MyProfilePage />,
     children: [
       { path: "/dashboard", element: <ProfileDashboardComponent /> },
-      { path: "/orders", element: <OrdersTableComponent /> }
-    ]
-  }
-]
+      { path: "/orders", element: <OrdersTableComponent /> },
+    ],
+  },
+];
 
-export default mainRoutes
+export default mainRoutes;

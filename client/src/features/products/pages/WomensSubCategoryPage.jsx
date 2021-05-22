@@ -3,7 +3,7 @@ const WomensSubCategoryPage = () => {
     <div>
       <h1>Women's SubCategory Page</h1>
     </div>
-  )
-}
+  );
+};
 
-export default WomensSubCategoryPage
+export default WomensSubCategoryPage;

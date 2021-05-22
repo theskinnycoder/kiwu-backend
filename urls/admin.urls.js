@@ -1,27 +1,27 @@
-import express from "express"
+import express from "express";
 import {
   admins_index,
   admin_delete,
   admin_details,
   admin_patch,
   admin_put,
-  make_admin
-} from "../controllers/admin.controllers.js"
-import { isSuperAdmin, protect } from "../middleware/auth.middleware.js"
+  make_admin,
+} from "../controllers/admin.controllers.js";
+import { isSuperAdmin, protect } from "../middleware/auth.middleware.js";
 
-const router = express.Router()
+const router = express.Router();
 
 router
   .route("/")
   .get(admins_index)
   .patch(protect, isSuperAdmin, admin_patch)
-  .post(protect, isSuperAdmin, make_admin)
+  .post(protect, isSuperAdmin, make_admin);
 
 router
   .route("/:id")
   .get(admin_details)
   .put(protect, isSuperAdmin, admin_put)
   .patch(protect, isSuperAdmin, admin_patch)
-  .delete(protect, isSuperAdmin, admin_delete)
+  .delete(protect, isSuperAdmin, admin_delete);
 
-export default router
+export default router;

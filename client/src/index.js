@@ -1,9 +1,9 @@
-import React from "react"
-import ReactDOM from "react-dom"
-import "./index.css"
-import App from "./App"
-import { store } from "./utils/store.js"
-import { Provider } from "react-redux"
+import React from "react";
+import ReactDOM from "react-dom";
+import "./index.css";
+import App from "./App";
+import { store } from "./utils/store.js";
+import { Provider } from "react-redux";
 
 ReactDOM.render(
   <React>
@@ -11,5 +11,5 @@ ReactDOM.render(
       <App />
     </Provider>
   </React>,
-  document.querySelector("#root")
-)
+  document.querySelector("#root"),
+);

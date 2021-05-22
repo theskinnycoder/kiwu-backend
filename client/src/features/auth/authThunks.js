@@ -1,5 +1,5 @@
-import axios from "../../utils/axiosHelper.js"
-import { createAsyncThunk } from "@reduxjs/toolkit"
+import axios from "../../utils/axiosHelper.js";
+import { createAsyncThunk } from "@reduxjs/toolkit";
 
 export const register = createAsyncThunk(
   "auth/register",
@@ -8,10 +8,10 @@ export const register = createAsyncThunk(
       await axios.post(
         "/api/auth/register",
         { username, email, password },
-        { withCredentials: true }
+        { withCredentials: true },
       )
-    ).data
-)
+    ).data,
+);
 
 export const login = createAsyncThunk(
   "auth/login",
@@ -20,13 +20,13 @@ export const login = createAsyncThunk(
       await axios.post(
         "/api/auth/login",
         { email, password },
-        { withCredentials: true }
+        { withCredentials: true },
       )
-    ).data
-)
+    ).data,
+);
 
 export const logout = createAsyncThunk(
   "auth/logout",
   async () =>
-    (await axios.post("/api/auth/logout", {}, { withCredentials: true })).data
-)
+    (await axios.post("/api/auth/logout", {}, { withCredentials: true })).data,
+);

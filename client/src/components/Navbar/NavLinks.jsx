@@ -1,6 +1,6 @@
-import { useEffect, useState } from "react"
-import { NavLink } from "react-router-dom"
-import axios from "../../utils/axiosHelper.js"
+import { useEffect, useState } from "react";
+import { NavLink } from "react-router-dom";
+import axios from "../../utils/axiosHelper.js";
 
 const renderLinks = (link, idx) => {
   if (link.path && link.children)
@@ -17,7 +17,7 @@ const renderLinks = (link, idx) => {
           ))}
         </div>
       </>
-    )
+    );
   else if (!link.path && link.categories)
     return (
       <>
@@ -30,53 +30,53 @@ const renderLinks = (link, idx) => {
           ))}
         </div>
       </>
-    )
+    );
   else
     return (
       <NavLink key={idx} to={link.path}>
         {link.name}
       </NavLink>
-    )
-}
+    );
+};
 
 const NavLinks = () => {
   const [navLinks, setNavLinks] = useState([
     {
       name: "Men",
-      categories: []
+      categories: [],
     },
     {
       name: "Women",
-      categories: []
+      categories: [],
     },
     {
       name: "What's New",
-      path: "/whats-new"
+      path: "/whats-new",
     },
     {
       name: "Designers",
       path: "/designers",
-      children: []
-    }
-  ])
+      children: [],
+    },
+  ]);
 
   useEffect(() => {
-    ;(async () => {
-      const designers = (await axios("/admins")).data
-      const menCategories = (await axios("/products/men/categories")).data
-      const womenCategories = (await axios("/products/women/ categories")).data
+    (async () => {
+      const designers = (await axios("/admins")).data;
+      const menCategories = (await axios("/products/men/categories")).data;
+      const womenCategories = (await axios("/products/women/ categories")).data;
       setNavLinks(links =>
         links.map(link => {
-          if (link.name === "Designers") link.children = designers
-          else if (link.name === "Men") link.categories = menCategories
-          else if (link.name === "Women") link.categories = womenCategories
-          return link
-        })
-      )
-    })()
-  }, [])
+          if (link.name === "Designers") link.children = designers;
+          else if (link.name === "Men") link.categories = menCategories;
+          else if (link.name === "Women") link.categories = womenCategories;
+          return link;
+        }),
+      );
+    })();
+  }, []);
 
-  return <>{navLinks.map((link, idx) => renderLinks(link, idx))}</>
-}
+  return <>{navLinks.map((link, idx) => renderLinks(link, idx))}</>;
+};
 
-export default NavLinks
+export default NavLinks;

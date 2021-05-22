@@ -3,7 +3,7 @@ const RecentlyAddedPage = () => {
     <div>
       <h1>Recently Added</h1>
     </div>
-  )
-}
+  );
+};
 
-export default RecentlyAddedPage
+export default RecentlyAddedPage;

@@ -1,5 +1,5 @@
-import mongoose from "mongoose"
-import { MONGO_URI } from "./constants.js"
+import mongoose from "mongoose";
+import { MONGO_URI } from "./constants.js";
 
 // -- Async function that connects to MongoDB Atlas
 const connectDB = async () => {
@@ -8,16 +8,16 @@ const connectDB = async () => {
       useNewUrlParser: true,
       useFindAndModify: false,
       useCreateIndex: true,
-      useUnifiedTopology: true
-    })
+      useUnifiedTopology: true,
+    });
     console.log(
       `Connected to the ${conn.connection.name} MongoDB DataBase...`.cyan
-        .underline
-    )
+        .underline,
+    );
   } catch (error) {
-    console.log(`Error: ${error.message}`.red.underline.bold)
-    process.exit(1)
+    console.log(`Error: ${error.message}`.red.underline.bold);
+    process.exit(1);
   }
-}
+};
 
-export default connectDB
+export default connectDB;

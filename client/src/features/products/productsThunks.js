@@ -1,24 +1,24 @@
-import { createAsyncThunk } from "@reduxjs/toolkit"
-import axios from "axios"
-import { v4 } from "uuid"
+import { createAsyncThunk } from "@reduxjs/toolkit";
+import axios from "axios";
+import { v4 } from "uuid";
 
 axios.defaults.headers = {
   "Access-Control-Allow-Origin": "*",
   Accept: "application/json;odata.metadata=full",
-  "Content-Type": "application/json"
-}
+  "Content-Type": "application/json",
+};
 
 export const fetchPosts = createAsyncThunk("posts/fetchPosts", async () => {
-  return (await axios.get("https://cea-assignment.herokuapp.com/posts")).data
-})
+  return (await axios.get("https://cea-assignment.herokuapp.com/posts")).data;
+});
 
 export const fetchPostByID = createAsyncThunk(
   "posts/fetchPostByID",
   async ({ id }) => {
     return (await axios.get(`https://cea-assignment.herokuapp.com/posts/${id}`))
-      .data
-  }
-)
+      .data;
+  },
+);
 
 export const createPost = createAsyncThunk(
   "posts/createPost",
@@ -29,11 +29,11 @@ export const createPost = createAsyncThunk(
         title,
         body,
         liked: false,
-        disliked: false
+        disliked: false,
       })
-    ).data
-  }
-)
+    ).data;
+  },
+);
 
 export const editPostByID = createAsyncThunk(
   "posts/editPostByID",
@@ -41,20 +41,20 @@ export const editPostByID = createAsyncThunk(
     return (
       await axios.patch(`https://cea-assignment.herokuapp.com/posts/${id}`, {
         title,
-        body
+        body,
       })
-    ).data
-  }
-)
+    ).data;
+  },
+);
 
 export const deletePostByID = createAsyncThunk(
   "posts/deletePostByID",
   async ({ id }) => {
     return (
       await axios.delete(`https://cea-assignment.herokuapp.com/posts/${id}`)
-    ).data
-  }
-)
+    ).data;
+  },
+);
 
 export const likePostByID = createAsyncThunk(
   "posts/likePost",
@@ -62,11 +62,11 @@ export const likePostByID = createAsyncThunk(
     return (
       await axios.patch(`https://cea-assignment.herokuapp.com/posts/${id}`, {
         liked: !liked,
-        disliked: false
+        disliked: false,
       })
-    ).data
-  }
-)
+    ).data;
+  },
+);
 
 export const dislikePostByID = createAsyncThunk(
   "posts/dislikePost",
@@ -74,8 +74,8 @@ export const dislikePostByID = createAsyncThunk(
     return (
       await axios.patch(`https://cea-assignment.herokuapp.com/posts/${id}`, {
         disliked: !disliked,
-        liked: false
+        liked: false,
       })
-    ).data
-  }
-)
+    ).data;
+  },
+);
