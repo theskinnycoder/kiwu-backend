@@ -10,7 +10,7 @@
   "homepage": "https://github.com/theskinnycoder/kiwu-backend#readme",
   "husky": {
     "hooks": {
-      "pre-commit": "pretty-quick"
+      "pre-commit": "pretty-quick --staged"
     }
   },
   "version": "1.0.0",
