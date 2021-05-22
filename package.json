@@ -10,7 +10,7 @@
   "homepage": "https://github.com/theskinnycoder/kiwu-backend#readme",
   "husky": {
     "hooks": {
-      "pre-commit": "pretty-quick --staged"
+      "pre-commit": "pretty-quick"
     }
   },
   "version": "1.0.0",
@@ -36,7 +36,8 @@
     "express": "^4.17.1",
     "express-async-handler": "^1.1.4",
     "jsonwebtoken": "^8.5.1",
-    "mongoose": "^5.12.6"
+    "mongoose": "^5.12.6",
+    "validator": "^13.6.0"
   },
   "devDependencies": {
     "colors": "^1.4.0",

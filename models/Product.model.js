@@ -11,19 +11,23 @@ const productSchema = new mongoose.Schema(
     },
     name: {
       type: String,
-      required: true,
+      required: [true, "Please provide a name for your product"],
     },
     description: {
       type: String,
-      required: true,
+      minlength: [
+        20,
+        "Description too short. Make it longer than 20 characters",
+      ],
+      required: [true, "Please provide some description for your product"],
     },
     image: {
       type: String,
-      required: true,
+      required: [true, "Please provide an image for your product"],
     },
-    brand: {
+    designer: {
       type: String,
-      required: true,
+      required: [true, "Please provide the product's designer's name"],
     },
     category: {
       type: [
@@ -47,7 +51,7 @@ const productSchema = new mongoose.Schema(
     },
     price: {
       type: Number,
-      required: true,
+      required: [true, "Please provide the price of the product"],
       default: 0,
     },
     countInStock: {

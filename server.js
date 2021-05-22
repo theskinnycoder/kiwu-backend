@@ -38,10 +38,25 @@ import colors from "colors";
   app.use(notFound);
   app.use(errorHandler);
 
-  app.listen(PORT, () =>
+  const server = app.listen(PORT, () =>
     console.log(
       `Server up & running in ${NODE_ENV} mode & is listening for requests at http://localhost:${PORT}`
         .yellow.bold,
     ),
   );
+
+  process.on("unhandledRejection", err => {
+    console.log("UNHANDLED REJECTION! 💥 Shutting down...");
+    console.log(err.name, err.message);
+    server.close(() => {
+      process.exit(1);
+    });
+  });
+
+  process.on("SIGTERM", () => {
+    console.log("👋 SIGTERM RECEIVED. Shutting down gracefully");
+    server.close(() => {
+      console.log("💥 Process terminated!");
+    });
+  });
 })();
