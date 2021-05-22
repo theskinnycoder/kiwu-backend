@@ -1,5 +1,6 @@
 {
   "arrowParens": "avoid",
-  "trailingComma": "none",
-  "semi": false
+  "trailingComma": "all",
+  "semi": true,
+  "endOfLine": "crlf"
 }

@@ -25,8 +25,12 @@
 - **GET `/api/products`** : To get all products
 - **GET `/api/products?categories=:categories`** : To get all products that matches a list of categories
 - **GET `/api/products?admin=:admin`** : To get all products that belongs to an admin
-- **GET `/api/products`** : To get all products
 - **GET `/api/products/:id`** : To get a product by ID
+
+### **4. Category Routes :**
+
+- **GET `/api/categories`** : To get all categories
+- **GET `/api/categories/:id`** : To get a category by ID
 
 ### **B) Authenticated Routes :**
 
@@ -72,7 +76,11 @@
 - **PUT `/api/admins/:id`** : To update an admin details by ID
 - **DELETE `/api/admins/:id`** : To delete an admin's account by ID (as a User too, not just admin access)
 
-#### **3. Order Routes :**
+#### **3. Category Routes :**
+
+- **POST `/api/categories`** : To create a new category
+
+#### **4. Order Routes :**
 
 - **GET `/api/orders`** : To get all un-delivered pending orders by all customers
 - **GET `/api/orders/:id`** : To get an un-delivered order by ID
