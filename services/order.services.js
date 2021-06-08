@@ -1,4 +1,4 @@
-import Order from "../models/Order.model.js";
+import { Order } from '../models';
 
 export const createMyOrder = async ({ args, customer }) =>
   await Order.create({ ...args, customer });
@@ -6,8 +6,7 @@ export const createMyOrder = async ({ args, customer }) =>
 export const getAllMyOrders = async ({ customer }) =>
   await Order.find({ customer, isDelivered: false });
 
-export const getMyOrderByID = async ({ id, customer }) =>
-  await Order.findOne({ id, customer });
+export const getMyOrderByID = async ({ id, customer }) => await Order.findOne({ id, customer });
 
 export const updateMyOrderToPaid = async ({ id, customer, args }) =>
   await Order.findOneAndUpdate(

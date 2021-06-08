@@ -1,11 +1,11 @@
-import mongoose from "mongoose";
+import { model, Schema } from 'mongoose';
 
-const orderSchema = new mongoose.Schema(
+const orderSchema = new Schema(
   {
     customer: {
-      type: mongoose.Schema.Types.ObjectId,
+      type: Schema.Types.ObjectId,
       required: true,
-      ref: "User",
+      ref: 'User',
     },
     orderItems: [
       {
@@ -13,9 +13,9 @@ const orderSchema = new mongoose.Schema(
         quantity: { type: Number, required: true, default: 1 },
         price: { type: Number, required: true },
         product: {
-          type: mongoose.Schema.Types.ObjectId,
+          type: Schema.Types.ObjectId,
           required: true,
-          ref: "Product",
+          ref: 'Product',
         },
       },
     ],
@@ -27,7 +27,7 @@ const orderSchema = new mongoose.Schema(
     },
     paymentMethod: {
       type: String,
-      required: [true, "Please select a payment method"],
+      required: [true, 'Please select a payment method'],
     },
     paymentResult: {
       id: { type: String },
@@ -72,6 +72,6 @@ const orderSchema = new mongoose.Schema(
   },
 );
 
-const Order = mongoose.model("Order", orderSchema);
+const Order = model('Order', orderSchema);
 
 export default Order;

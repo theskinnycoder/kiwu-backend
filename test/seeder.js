@@ -1,11 +1,9 @@
-import User from "../models/User.model.js";
-import Product from "../models/Product.model.js";
-import Order from "../models/Order.model.js";
-import connectDB from "../utils/connectDB.js";
-import products from "./data/products.js";
-import users from "./data/users.js";
-import colors from "colors";
-import argon2 from "argon2";
+import argon2 from 'argon2';
+import Order from '../models/Order.model.js';
+import Product from '../models/Product.model.js';
+import User from '../models/User.model.js';
+import connectDB from '../utils/connectDB.js';
+import users from './data/users.js';
 
 const importData = async () => {
   await connectDB();
@@ -16,7 +14,7 @@ const importData = async () => {
 
     await User.insertMany(
       await Promise.all(
-        users.map(async user => {
+        users.map(async (user) => {
           user.password = await argon2.hash(user.password);
           return user;
         }),
@@ -31,7 +29,7 @@ const importData = async () => {
 
     // await Product.insertMany(sampleProducts);
 
-    console.log("Data Imported!".green.inverse);
+    console.log('Data Imported!'.green.inverse);
     process.exit();
   } catch (error) {
     console.error(`${error}`.red.inverse);
@@ -46,7 +44,7 @@ const destroyData = async () => {
     await Product.deleteMany();
     await User.deleteMany();
 
-    console.log("Data Destroyed!".red.inverse);
+    console.log('Data Destroyed!'.red.inverse);
     process.exit();
   } catch (error) {
     console.error(`${error}`.red.inverse);
@@ -54,7 +52,7 @@ const destroyData = async () => {
   }
 };
 
-if (process.argv[2] === "-d") {
+if (process.argv[2] === '-d') {
   destroyData();
 } else {
   importData();

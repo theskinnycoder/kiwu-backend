@@ -1,20 +1,18 @@
-import jwt from "jsonwebtoken";
-import { JWT_SECRET } from "./constants.js";
+import { sign, verify } from 'jsonwebtoken';
+import { JWT_SECRET } from './constants';
 
-export const encodeJWT = payload => {
-  return new Promise((resolve, reject) => {
-    jwt.sign(payload, JWT_SECRET, { expiresIn: "364d" }, (err, token) => {
+export const encodeJWT = (payload) =>
+  new Promise((resolve, reject) => {
+    sign(payload, JWT_SECRET, { expiresIn: '364d' }, (err, token) => {
       if (err) return reject(err);
-      else return resolve(token);
+      return resolve(token);
     });
   });
-};
 
-export const decodeJWT = token => {
-  return new Promise((resolve, reject) => {
-    jwt.verify(token, JWT_SECRET, (err, payload) => {
+export const decodeJWT = (token) =>
+  new Promise((resolve, reject) => {
+    verify(token, JWT_SECRET, (err, payload) => {
       if (err) return reject(err);
-      else return resolve(payload);
+      return resolve(payload);
     });
   });
-};

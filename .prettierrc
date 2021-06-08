@@ -1,6 +1,8 @@
 {
-  "arrowParens": "avoid",
-  "trailingComma": "all",
+  "tabWidth": 2,
+  "useTabs": false,
+  "printWidth": 100,
+  "singleQuote": true,
   "semi": true,
-  "endOfLine": "crlf"
+  "trailingComma": "all"
 }

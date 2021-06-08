@@ -1,35 +1,32 @@
-import argon2 from "argon2";
-import mongoose from "mongoose";
-import validator from "validator";
+import { hash, verify } from 'argon2';
+import { model, Schema } from 'mongoose';
+import { isEmail, isStrongPassword } from 'validator';
 
-const userSchema = new mongoose.Schema(
+const userSchema = new Schema(
   {
     username: {
       type: String,
-      required: [true, "Please provide a username"],
+      required: [true, 'Please provide a username'],
     },
     email: {
       type: String,
-      required: [true, "Please provide your email"],
-      unique: [true, "This email is already taken"],
-      lowercase: [true, "An email should be all lowercase"],
-      validate: [validator.isEmail, "Please provide a valid email"],
+      required: [true, 'Please provide your email'],
+      unique: [true, 'This email is already taken'],
+      lowercase: [true, 'An email should be all lowercase'],
+      validate: [isEmail, 'Please provide a valid email'],
     },
     password: {
       type: String,
-      required: [true, "Please provide your password"],
+      required: [true, 'Please provide your password'],
       select: false,
       minlength: [6, "Password can't be shorter than 6 characters"],
-      validate: [
-        validator.isStrongPassword,
-        "The password you entered is weak",
-      ],
+      validate: [isStrongPassword, 'The password you entered is weak'],
     },
     role: {
       type: String,
       required: true,
-      enum: ["SUPER-ADMIN", "ADMIN", "CUSTOMER"],
-      default: "CUSTOMER",
+      enum: ['ADMIN', 'DESIGNER', 'CUSTOMER'],
+      default: 'CUSTOMER',
     },
   },
   {
@@ -37,15 +34,15 @@ const userSchema = new mongoose.Schema(
   },
 );
 
-userSchema.pre("save", async function (next) {
-  if (!this.isModified("password")) next();
-  this.password = await argon2.hash(this.password);
+userSchema.pre('save', async function (next) {
+  if (!this.isModified('password')) next();
+  this.password = await hash(this.password);
 });
 
 userSchema.methods.matchPasswords = async function (enteredPassword) {
-  return await argon2.verify(this.password, enteredPassword);
+  return await verify(this.password, enteredPassword);
 };
 
-const User = mongoose.model("User", userSchema);
+const User = model('User', userSchema);
 
 export default User;

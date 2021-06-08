@@ -1,9 +1,9 @@
-import User from "../models/User.model.js";
+import { User } from '../models';
 
 export const getProfileByID = async ({ id }) => await User.findById(id);
 
 export const updateProfileByID = async ({ id, username, email, password }) => {
-  const user = await User.findById(id).select("+password");
+  const user = await User.findById(id).select('+password');
   const prevPassword = user.password;
   user.username = username;
   user.email = email;
@@ -11,5 +11,4 @@ export const updateProfileByID = async ({ id, username, email, password }) => {
   return { updatedProfile: await user.save(), prevPassword };
 };
 
-export const deleteProfileByID = async ({ id }) =>
-  await User.findByIdAndDelete(id);
+export const deleteProfileByID = async ({ id }) => await User.findByIdAndDelete(id);

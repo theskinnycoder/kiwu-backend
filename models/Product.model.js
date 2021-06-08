@@ -1,29 +1,26 @@
-import mongoose from "mongoose";
+import { model, Schema } from 'mongoose';
 
-const arrayNotEmpty = arr => arr.length >= 1;
+const arrayNotEmpty = (arr) => arr.length >= 1;
 
-const productSchema = new mongoose.Schema(
+const productSchema = new Schema(
   {
     admin: {
-      type: mongoose.Schema.Types.ObjectId,
+      type: Schema.Types.ObjectId,
       required: true,
-      ref: "User",
+      ref: 'User',
     },
     name: {
       type: String,
-      required: [true, "Please provide a name for your product"],
+      required: [true, 'Please provide a name for your product'],
     },
     description: {
       type: String,
-      minlength: [
-        20,
-        "Description too short. Make it longer than 20 characters",
-      ],
-      required: [true, "Please provide some description for your product"],
+      minlength: [20, 'Description too short. Make it longer than 20 characters'],
+      required: [true, 'Please provide some description for your product'],
     },
     image: {
       type: String,
-      required: [true, "Please provide an image for your product"],
+      required: [true, 'Please provide an image for your product'],
     },
     designer: {
       type: String,
@@ -32,12 +29,12 @@ const productSchema = new mongoose.Schema(
     category: {
       type: [
         {
-          type: mongoose.Schema.Types.ObjectId,
-          ref: "Category",
+          type: Schema.Types.ObjectId,
+          ref: 'Category',
         },
       ],
       required: false,
-      validate: [arrayNotEmpty, "Select atleast one category type"],
+      validate: [arrayNotEmpty, 'Select atleast one category type'],
     },
     avgRating: {
       type: Number,
@@ -51,7 +48,7 @@ const productSchema = new mongoose.Schema(
     },
     price: {
       type: Number,
-      required: [true, "Please provide the price of the product"],
+      required: [true, 'Please provide the price of the product'],
       default: 0,
     },
     countInStock: {
@@ -70,6 +67,6 @@ const productSchema = new mongoose.Schema(
   },
 );
 
-const Product = mongoose.model("Product", productSchema);
+const Product = model('Product', productSchema);
 
 export default Product;

@@ -1,7 +1,6 @@
-import asyncHandler from "express-async-handler";
-import { getProfileByID } from "../services/profile.services.js";
-import { COOKIE_NAME } from "../utils/constants.js";
-import { decodeJWT } from "../utils/tokens.js";
+import asyncHandler from 'express-async-handler';
+import { getProfileByID } from '../services/profile.services';
+import { COOKIE_NAME, decodeJWT } from '../utils';
 
 // -- Private Routes' Protection Midddleware
 export const protect = asyncHandler(async (req, res, next) => {
@@ -10,30 +9,30 @@ export const protect = asyncHandler(async (req, res, next) => {
     const decoded = await decodeJWT(token);
 
     if (decoded) req.user = await getProfileByID(decoded.id);
-    else throw new Error("UnAuthenticated! Please login again.");
+    else throw new Error('Unauthenticated! Please login again');
     next();
   } else {
     res.status(401);
-    throw new Error("UnAuthenticated! Please login again.");
+    throw new Error('Unauthenticated! Please login again');
   }
 });
 
 // -- Admin-Only Routes' Protection Midddleware
 export const isAdmin = asyncHandler((req, res, next) => {
-  if (req.user.role === "ADMIN") {
+  if (req.user.role === 'DESIGNER') {
     next();
   } else {
     res.status(401);
-    throw new Error("UnAuthorized as an Admin");
+    throw new Error('Unauthorized as a Designer');
   }
 });
 
 // -- Super-Admin-Only Routes' Protection Midddleware
 export const isSuperAdmin = asyncHandler((req, res, next) => {
-  if (req.user.role === "SUPER-ADMIN") {
+  if (req.user.role === 'ADMIN') {
     next();
   } else {
     res.status(401);
-    throw new Error("UnAuthorized as a Super-Admin");
+    throw new Error('Unauthorized as an Admin');
   }
 });

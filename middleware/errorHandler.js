@@ -1,4 +1,4 @@
-import { __is_prod__ } from "../utils/constants.js";
+import { IS_PROD } from '../utils';
 
 export const notFound = (req, res, next) => {
   const error = new Error(`Not Found - ${req.originalUrl}`);
@@ -8,12 +8,12 @@ export const notFound = (req, res, next) => {
 };
 
 export const errorHandler = (err, _req, res, _next) => {
-  let error,
-    statusCode = 400;
-  if (err.name === "ValidationError") {
-    const messages = Object.values(err.errors).map(val => val.message);
+  let error;
+  let statusCode = 400;
+  if (err.name === 'ValidationError') {
+    const messages = Object.values(err.errors).map((val) => val.message);
     error = messages;
-  } else if (err.name === "CastError") {
+  } else if (err.name === 'CastError') {
     error = `Invalid ${err.path}: ${err.value}`;
   } else if (err.code === 11000) {
     const value = err.errmsg.match(/(["'])(\\?.)*?\1/)[0];
@@ -24,6 +24,6 @@ export const errorHandler = (err, _req, res, _next) => {
   }
   res.status(statusCode).json({
     error,
-    stack: __is_prod__ ? null : err.stack,
+    stack: IS_PROD ? null : err.stack,
   });
 };
